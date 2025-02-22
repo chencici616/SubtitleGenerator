@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!-- 设置页面语言为中文 -->
+<html lang="zh-CN">
+<head>
+    <!-- 设置字符编码为UTF-8，支持中文显示 -->
+    <meta charset="UTF-8">
+    <!-- 设置移动设备的视口，确保在移动设备上正常显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字幕生成器</title>
+    <!-- 页面样式定义开始 -->
+    <style>
+        /* 设置页面整体样式 */
+        body {
+            font-family: 'Microsoft YaHei', sans-serif; /* 使用微软雅黑字体 */
+            max-width: 800px; /* 限制页面最大宽度 */
+            margin: 0 auto; /* 页面居中显示 */
+            padding: 20px; /* 页面内边距 */
+            background-color: #f5f5f5; /* 浅灰色背景 */
+        }
+
+        /* 主容器样式 */
+        .container {
+            background-color: white; /* 白色背景 */
+            padding: 20px; /* 内边距 */
+            border-radius: 8px; /* 圆角边框 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+            width: 100%; /* 宽度100% */
+            max-width: 600px; /* 最大宽度限制 */
+            margin: 0 auto; /* 容器居中 */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .controls-container {
+            margin-bottom: 20px;
+        }
+
+        .upload-button-container {
+            margin-bottom: 20px;
+        }
+
+        /* 样式控制区域布局 */
+        .style-controls {
+            display: grid; /* 使用网格布局 */
+            grid-template-columns: 1fr 1fr 1fr; /* 三等分列布局 */
+            gap: 15px; /* 网格间距 */
+            margin-bottom: 20px; /* 底部间距 */
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            height: 40px;
+            background-color: white;
+        }
+
+        .control-group input[type="color"] {
+            padding: 2px;
+        }
+
+        .preview-area {
+            max-width: 100%;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #preview-image,
+        #result-image {
+            max-width: 100%;
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        /* 按钮通用样式 */
+        button {
+            padding: 10px 20px; /* 按钮内边距 */
+            border-radius: 4px; /* 圆角边框 */
+            cursor: pointer; /* 鼠标悬停显示手型 */
+            font-size: 16px; /* 字体大小 */
+            width: 100%; /* 宽度100% */
+            box-sizing: border-box; /* 盒模型计算方式 */
+            height: 40px; /* 固定高度 */
+        }
+
+        .upload-button {
+            background-color: transparent;
+            border: 2px solid #4CAF50;
+            color: #4CAF50;
+        }
+
+        .upload-button:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        #generate-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        #generate-btn:hover {
+            background-color: #45a049;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            border-color: #cccccc;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>字幕生成器</h1>
+        <div class="controls-container">
+            <div class="upload-button-container">
+                <button class="upload-button" id="upload-button">上传图片</button>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+            </div>
+            <div class="style-controls">
+                <div class="control-group">
+                    <label for="font-size">字体大小:</label>
+                    <input type="number" id="font-size" value="30" min="12" max="100">
+                </div>
+                <div class="control-group">
+                    <label for="font-color">字体颜色:</label>
+                    <input type="color" id="font-color" value="#ffffff">
+                </div>
+                <div class="control-group">
+                    <label for="font-family">字体样式:</label>
+                    <select id="font-family">
+                        <option value="Microsoft YaHei">微软雅黑</option>
+                        <option value="SimHei">黑体</option>
+                        <option value="KaiTi">楷体</option>
+                        <option value="SimSun">宋体</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <textarea id="subtitle-text" placeholder="请输入字幕内容，每行一句话"></textarea>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button id="generate-btn" disabled>生成字幕</button>
+            <button id="download-btn" disabled>图片下载</button>
+        </div>
+        <div class="preview-area">
+            <img id="preview-image" alt="预览图片">
+            <img id="result-image" alt="生成结果">
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
