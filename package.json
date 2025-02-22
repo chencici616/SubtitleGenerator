@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "http-server . --port 3000",
-    "dev": "http-server . --port 3000"
+    "dev": "http-server . --port 3000",
+    "vercel-build": "echo 'No build required'"
   },
   "keywords": [
     "subtitle",
