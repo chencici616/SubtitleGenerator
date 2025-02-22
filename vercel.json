@@ -1,12 +1,3 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": ".", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/" }
-  ],
-  "github": {
-    "silent": true
-  }
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
