@@ -1,0 +1,21 @@
+{
+  "name": "subtitle-generator",
+  "version": "0.1.0",
+  "description": "一个简单易用的网页工具，可以帮助用户快速为图片添加字幕",
+  "main": "app.js",
+  "scripts": {
+    "start": "http-server . --port 3000",
+    "dev": "http-server . --port 3000"
+  },
+  "keywords": [
+    "subtitle",
+    "image",
+    "generator",
+    "web"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
